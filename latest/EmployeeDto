@@ -1,0 +1,46 @@
+package com.employeemanagement.project.dto;
+
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.time.LocalDate;
+
+@Data
+@AllArgsConstructor
+public class EmployeeRequestDto {
+
+    private Integer id;
+
+    @NotBlank(message = "Name is required")
+    @Pattern(
+            regexp = "^[A-Za-z ]+$",
+            message = "Name should contain only alphabets and spaces"
+    )
+    private String name;
+
+    @NotBlank(message = "Email is required")
+    @Pattern(
+            regexp = "^[A-Za-z0-9]+([._%+-][A-Za-z0-9]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$",
+            message = "Enter a valid email address"
+    )
+    private String email;
+
+    @DecimalMin(value = "0.01", message = "Salary must be greater than 0")
+    @Digits(integer = 10, fraction = 2,
+            message = "Salary must contain only numbers with up to 2 decimal places")
+    private double salary;
+
+    @NotNull(message = "Joining date is required")
+    private LocalDate joiningDate;
+
+    @NotNull(message = "Employee status is required")
+    private Boolean isActive;
+
+    @NotNull(message = "Department id is required")
+    private Integer departmentId;
+}
